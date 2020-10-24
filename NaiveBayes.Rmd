@@ -1,0 +1,28 @@
+---
+title: "Naive Bayes"
+author: "19523083, 19523221"
+date: "10/24/2020"
+output:
+  html_document:
+    df_print: paged
+---
+
+"Librarynya mlbench (Kasusnya PimaIndiansDiabetes)"
+
+```{r}
+library(mlbench)
+data(PimaIndiansDiabetes) 
+head(PimaIndiansDiabetes)
+```
+
+```{r}
+#mengeset data
+new_data <- subset(PimaIndiansDiabetes, select = c(glucose, insulin, mass, age, diabetes))
+```
+
+```{r}
+#fitting model data naive bayes
+library(naivebayes)
+Naive_Bayes_Models = naive_bayes(diabetes ~., data = new_data)
+Naive_Bayes_Models
+```

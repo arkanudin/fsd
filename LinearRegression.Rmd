@@ -1,0 +1,53 @@
+---
+title: "LinearRegression"
+author: "19523083, 19523221"
+date: "10/24/2020"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+head(longley)
+```
+
+$$Simple Linier Regression$$
+
+```{r}
+new_dt <- subset(longley, select = c(Employed, GNP))
+new_dt
+```
+
+
+```{r}
+fit <- lm(Employed~GNP, data = longley)
+summary(fit)
+```
+
+
+```{r}
+library(predict3d)
+ggPredict(fit)
+```
+
+
+```{r}
+ggPredict(fit, xpos = 0.75, vjust = 1.5, show.error = TRUE)
+```
+
+$$Multiple Linier Regression$$
+
+```{r}
+fit1 <- lm(Employed~GNP+Population, data = longley) 
+summary(fit1)
+```
+
+
+```{r}
+ggPredict(fit1)
+```
+
+
+```{r}
+ggPredict(fit1, show.error = TRUE, facet.modx = TRUE)
+```

@@ -1,0 +1,47 @@
+---
+title: "Logistic Regression"
+author: "19523083, 19523221"
+date: "10/24/2020"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+head(attenu)
+```
+
+$$Simple Logistic Regression$$
+
+```{r}
+dt <- subset(attenu, select = c(event, dist, accel))
+dt
+```
+
+```{r}
+fit <- glm(formula = accel~event, data = attenu, family = binomial)
+summary(fit)
+```
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+ggplot(dt, aes(x = event, y = accel)) + geom_point() + stat_smooth(method = "glm", method.args = list(family = binomial), se = FALSE)
+```
+
+$$Simple Logistic Regression$$
+
+```{r}
+fit2 <- glm(formula = accel~event+dist, data = attenu, family = binomial)
+summary(fit2)
+```
+
+```{r}
+library(predict3d)
+```
+
+```{r}
+ggPredict(fit2)
+```
