@@ -1,0 +1,66 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+head(iris)
+dim(iris)
+newData <- subset(iris, select = c(Sepal.Length, Sepal.Width, Species))
+newData
+```
+
+```{r}
+n=round(nrow(newData)*0.75)
+n
+```
+
+
+```{r}
+set.seed(12345)
+sample = sample(seq_len(nrow(newData)), size = n)
+```
+
+
+```{r}
+train = newData[sample,]
+dim(train)
+test = newData[-sample,]
+dim(test)
+```
+
+```{r}
+library(e1071)
+data_SVM <- svm(factor(Species) ~., data = train, probability=T)
+head(data_SVM)
+print(data_SVM)
+plot(data_SVM, newData)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
