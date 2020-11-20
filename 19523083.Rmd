@@ -1,0 +1,48 @@
+---
+title: "K Means Clustering"
+author: "Muhammad Aqil Arkanudin - 19523083"
+date: "11/20/2020"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(cluster)
+library(factoextra)
+```
+
+
+```{r}
+data = read.delim("wholesale customers data.csv", sep = ",")
+data
+summary(data)
+summary(is.na(data))
+```
+
+###Clustering dengan variabel Fresh, Milk, Grocery, dan Frozen 
+```{r}
+data.new <- data[, 3:6]
+data.class <- data[, "Channel"]
+set.seed(1234)
+result <- kmeans(data.new, 3)
+result
+```
+
+
+
+```{r}
+par(mfrow = c(2,2), mar = c(5,4,2,2))
+plot(data.new[, c(1,2)], col=result$cluster)
+plot(data.new[, c(1,2)], col=data.class)
+plot(data.new[, c(3,4)], col=result$cluster)
+plot(data.new[, c(3,4)], col=data.class)
+```
+
+
+```{r}
+data.new$cluster <- factor(result$cluster)
+centers <- as.data.frame(result$centers)
+library(ggplot2)
+ggplot() +
+  geom_point(data=data.new, aes(x=Grocery, y=Frozen, color=cluster)) + geom_point(data=centers, aes(x=Grocery, y=Frozen, color="Center"), size=52, alpha=.3, show.legend = FALSE)
+```
